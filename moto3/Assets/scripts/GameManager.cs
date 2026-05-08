@@ -43,26 +43,27 @@ public class GameManager : MonoBehaviour
     }
 
     // A ÚNICA porta de entrada para trocar de cenas no jogo
-    public void RequestSceneChange(string sceneName)
+   public void RequestSceneChange(string sceneName)
+{
+    // 1. Se estiver iniciando e pedir o Menu
+    if (CurrentState == GameState.Iniciando && sceneName == "Menu")
     {
-        // Lógica de autorização baseada no estado atual e cena solicitada
-        if (CurrentState == GameState.Iniciando && sceneName == "Menu Principal")
-        {
-            ChangeState(GameState.MenuPrincipal);
-            SceneManager.LoadScene(sceneName);
-        }
-        else if (CurrentState == GameState.MenuPrincipal && sceneName == "GetStarted_Scene")
-        {
-            ChangeState(GameState.Gameplay);
-            SceneManager.LoadScene(sceneName);
-        }
-        else
-        {
-            // Caso algum script tente carregar uma cena de forma não autorizada
-            Debug.LogWarning($"[GameManager] Mudança para a cena '{sceneName}' NÃO autorizada a partir do estado {CurrentState}.");
-        }
+        ChangeState(GameState.MenuPrincipal);
+        SceneManager.LoadScene(sceneName);
     }
-
+    // 2. Se estiver no Menu e pedir o Jogo
+    else if (CurrentState == GameState.MenuPrincipal && sceneName == "Jogo")
+    {
+        ChangeState(GameState.Gameplay);
+        SceneManager.LoadScene(sceneName);
+    }
+    else
+    {
+        // Se cair aqui, é porque o nome da cena enviado não bate com o IF 
+        // ou o estado atual não permite essa transição.
+        Debug.LogWarning($"[GameManager] Bloqueado: Não posso ir para '{sceneName}' enquanto estou em {CurrentState}");
+    }
+}
     // Gerenciamento simples de Input System exigido na atividade
     public void AllocatePlayerInput(PlayerInput playerInput)
     {

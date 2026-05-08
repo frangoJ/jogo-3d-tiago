@@ -11,6 +11,6 @@ public class SplashControle : MonoBehaviour
     private IEnumerator WaitAndLoadMenu()
     {
         yield return new WaitForSeconds(2f);
-        GameManager.Instance.RequestSceneChange("Menu Principal");
+        GameManager.Instance.RequestSceneChange("Menu");
     }
 }
