@@ -7,6 +7,14 @@ public class LoadScene : MonoBehaviour
    
    public void Load()
    {
-      SceneManager.LoadScene(sceneName);
+     if (GameManager.Instance != null)
+        {
+            GameManager.Instance.RequestSceneChange(sceneName);
+        }
+
+        else
+        {
+            Debug.LogError("Game Manager nao achado");
+        }
    }
 }
