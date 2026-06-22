@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerCoinCollector : MonoBehaviour
 {
-    private int totalCoins = 0;
+    private int coinCount;
 
-    private void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        PlayerObserverManager.SendCoinsChanged(totalCoins);
-    }
-
-    public void AddCoins(int amount)
-    {
-        totalCoins += amount;
-        PlayerObserverManager.SendCoinsChanged(totalCoins);
+        
+        if (other.CompareTag("Coin") || other.CompareTag("PlayerCoin"))
+        {
+            coinCount++;
+            PlayerObserverManager.NotifyCoinCollected(coinCount);
+            Destroy(other.gameObject);
+        }
     }
 }
