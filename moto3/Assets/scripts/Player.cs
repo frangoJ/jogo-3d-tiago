@@ -1,17 +1,19 @@
 using UnityEngine;
 
-public class PlayerCoinCollector : MonoBehaviour
+public class PlayerMoedaCollector : MonoBehaviour
 {
-    private int coinCount;
+    private int moedaCount = 0;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        
-        if (other.CompareTag("Coin") || other.CompareTag("PlayerCoin"))
+        if (hit.gameObject.CompareTag("Moeda"))
         {
-            coinCount++;
-            PlayerObserverManager.NotifyCoinCollected(coinCount);
-            Destroy(other.gameObject);
+            moedaCount++;
+            
+            // Chama o método atualizado em português!
+            PlayerObserverManager.NotifyMoedaCollected(moedaCount);
+            
+            Destroy(hit.gameObject);
         }
     }
 }

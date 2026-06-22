@@ -7,12 +7,14 @@ public class CoinUI : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerObserverManager.OnCoinCollected += UpdateCoinText;
+        // Se inscreve usando o nome atualizado
+        PlayerObserverManager.OnMoedaCollected += UpdateCoinText;
     }
 
     private void OnDisable()
     {
-        PlayerObserverManager.OnCoinCollected -= UpdateCoinText;
+        // Desinscreve usando o nome atualizado
+        PlayerObserverManager.OnMoedaCollected -= UpdateCoinText;
     }
 
     private void Start()
@@ -23,11 +25,11 @@ public class CoinUI : MonoBehaviour
         }
     }
 
-    private void UpdateCoinText(int totalCoins)
+    private void UpdateCoinText(int totalMoedas)
     {
         if (coinText != null)
         {
-            coinText.text = "Moedas: " + totalCoins;
+            coinText.text = "Moedas: " + totalMoedas;
         }
     }
 }
