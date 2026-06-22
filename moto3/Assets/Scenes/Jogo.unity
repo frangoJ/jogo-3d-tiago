@@ -266,24 +266,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9483f71acb66e4a238c43f546dc9f795, type: 3}
---- !u!1 &137839244 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6569202023222769157, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
-  m_PrefabInstance: {fileID: 6500826423783866256}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &137839245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137839244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3095cd0abd19a4e8b9018d5c48a892, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCoin
-  coinValue: 1
 --- !u!1 &447481717
 GameObject:
   m_ObjectHideFlags: 0
@@ -3838,10 +3820,7 @@ PrefabInstance:
     - {fileID: 7444600719120377633, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6569202023222769157, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 137839245}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
 --- !u!23 &6685933758803220113
 MeshRenderer:
