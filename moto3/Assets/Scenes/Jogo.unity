@@ -1831,6 +1831,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRobot
       objectReference: {fileID: 0}
+    - target: {fileID: 3361837022689051103, guid: 332df604d1fc7fd46ae4013ce9b4a5d6, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3795091336040275115, guid: 332df604d1fc7fd46ae4013ce9b4a5d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
@@ -1895,7 +1899,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3819,6 +3824,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7444600719120377633, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
     - {fileID: 6270295105751562736, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
+    - {fileID: 7882315349968313084, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
