@@ -2,10 +2,11 @@ using System;
 
 public static class PlayerObserverManager
 {
-    public static Action<int> OnCoinCollected;
+    // O evento agora fala Moeda
+    public static event Action<int> OnMoedaCollected;
 
-    public static void NotifyCoinCollected(int totalCoins)
+    public static void NotifyMoedaCollected(int totalMoedas)
     {
-        OnCoinCollected?.Invoke(totalCoins);
+        OnMoedaCollected?.Invoke(totalMoedas);
     }
 }

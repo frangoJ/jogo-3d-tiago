@@ -341,9 +341,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1231937679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab9b3f001b7b2a4b90c6dd7fefb9849, type: 3}
+  m_Script: {fileID: 11500000, guid: 26aa3d29081a2a640be8144bd93f4321, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoinUI
+  m_EditorClassIdentifier: Assembly-CSharp::CoinControlerUI
   coinText: {fileID: 1389968345}
 --- !u!1 &1389968343
 GameObject:
