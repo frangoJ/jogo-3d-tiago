@@ -6,13 +6,15 @@ public class PlayerMoedaCollector : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        // Teste de Log: imprime tudo em que o robô esbarra
+        Debug.Log("Robô encostou no objeto: " + hit.gameObject.name + " | Tag: " + hit.gameObject.tag);
+
         if (hit.gameObject.CompareTag("Moeda"))
         {
             moedaCount++;
-            
-            // Chama o método atualizado em português!
+
             PlayerObserverManager.NotifyMoedaCollected(moedaCount);
-            
+
             Destroy(hit.gameObject);
         }
     }
