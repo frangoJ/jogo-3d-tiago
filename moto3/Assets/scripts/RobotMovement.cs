@@ -1,21 +1,26 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Não esqueça desse usando!
+using UnityEngine.InputSystem;
+using StarterAssets; // Namespace do Starter Assets
 
 public class RobotMovement : MonoBehaviour
 {
-    private Vector2 moveInput;
+    private StarterAssetsInputs starterInputs;
 
-    // Essa função vai aparecer na lista do Unity Event!
-    public void OnMove(InputAction.CallbackContext context)
+    private void Awake()
     {
-        // Lê o valor da alavanca/WASD/Setas
-        moveInput = context.ReadValue<Vector2>();
+        // Pega o componente do Starter Assets no próprio robô
+        starterInputs = GetComponent<StarterAssetsInputs>();
     }
 
-    private void FixedUpdate()
+    // Função chamada pelo Unity Event do PlayerInput
+    public void OnMove(InputAction.CallbackContext context)
     {
-        // Usa o moveInput para movimentar o robô
-        Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
-        // Seu código de movimentação aqui...
+        Vector2 moveVector = context.ReadValue<Vector2>();
+
+        // Repassa o movimento e a animação direto para o controlador nativo
+        if (starterInputs != null)
+        {
+            starterInputs.MoveInput(moveVector);
+        }
     }
 }
