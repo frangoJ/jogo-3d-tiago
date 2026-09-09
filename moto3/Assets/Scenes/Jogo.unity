@@ -597,7 +597,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 825719555866366699, guid: 332df604d1fc7fd46ae4013ce9b4a5d6, type: 3}
   m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782aa813d415f3f4699a43ea9346d2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GeradorPlayer
-  playerPrefab: {fileID: 1804703078109025515, guid: 332df604d1fc7fd46ae4013ce9b4a5d6, type: 3}
+  playerPrefab: {fileID: 825719555866366699, guid: 332df604d1fc7fd46ae4013ce9b4a5d6, type: 3}
 --- !u!1 &691553542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,6 +1104,10 @@ PrefabInstance:
     - target: {fileID: 2539668621424575346, guid: 11df39673429a452dbbcbc5da55020d6, type: 3}
       propertyPath: m_Name
       value: Remaining_Collectibles_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070795865409416961, guid: 11df39673429a452dbbcbc5da55020d6, type: 3}
+      propertyPath: m_text
+      value: 'colletaveis restantes: X'
       objectReference: {fileID: 0}
     - target: {fileID: 5169437076382942201, guid: 11df39673429a452dbbcbc5da55020d6, type: 3}
       propertyPath: m_Pivot.x
@@ -1670,7 +1674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8739722132645255736, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2706,7 +2710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8739722132645255736, guid: ec6756321fb05604c96d94a8bcb3f167, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

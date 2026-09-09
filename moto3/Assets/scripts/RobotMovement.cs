@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using StarterAssets; // Namespace do Starter Assets
+using StarterAssets;
 
 public class RobotMovement : MonoBehaviour
 {
@@ -8,19 +8,16 @@ public class RobotMovement : MonoBehaviour
 
     private void Awake()
     {
-        // Pega o componente do Starter Assets no próprio robô
+        // Pega o componente StarterAssetsInputs na raiz
         starterInputs = GetComponent<StarterAssetsInputs>();
     }
 
-    // Função chamada pelo Unity Event do PlayerInput
     public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 moveVector = context.ReadValue<Vector2>();
-
-        // Repassa o movimento e a animação direto para o controlador nativo
         if (starterInputs != null)
         {
-            starterInputs.MoveInput(moveVector);
+            // Repassa o movimento para o Starter Assets
+            starterInputs.MoveInput(context.ReadValue<Vector2>());
         }
     }
 }
