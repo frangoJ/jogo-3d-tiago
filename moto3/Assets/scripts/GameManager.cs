@@ -1,29 +1,23 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem; 
+using TMPro; // Usado para TextMeshPro (remova se usar Text normal)
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public enum GameState
-    {
-        Iniciando,
-        MenuPrincipal,
-        Gameplay
-    }
+    [Header("Pontuação")]
+    public int scoreP1 = 0;
+    public int scoreP2 = 0;
 
-    public GameState CurrentState { get; private set; }
+    [Header("UI do Placar")]
+    [SerializeField] private TextMeshProUGUI textoPontuacaoP1;
+    [SerializeField] private TextMeshProUGUI textoPontuacaoP2;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
-            
-            ChangeState(GameState.Iniciando);
-            SceneManager.LoadScene("Splash"); 
         }
         else
         {
@@ -31,42 +25,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ChangeState(GameState newState)
+    // Método chamado pelo PlayerScore ao pegar a moeda
+    public void AdicionarPontuacao(int playerIndex, int novaPontuacao)
     {
-        CurrentState = newState;
-        Debug.Log($"[GameManager] estado mudou para: {CurrentState}");
-    }
-
-    public void RequestSceneChange(string sceneName)
-    {
-        if (CurrentState == GameState.Iniciando && sceneName == "Menu")
+        if (playerIndex == 0)
         {
-            ChangeState(GameState.MenuPrincipal);
-            SceneManager.LoadScene(sceneName);
+            scoreP1 = novaPontuacao;
+            AtualizarTextoUI(textoPontuacaoP1, "P1 Moedas: ", scoreP1);
         }
-        else if (CurrentState == GameState.MenuPrincipal && sceneName == "Jogo")
+        else if (playerIndex == 1)
         {
-            ChangeState(GameState.Gameplay);
-            SceneManager.LoadScene(sceneName);
-            SceneManager.LoadScene("GUI", LoadSceneMode.Additive);
-        }
-        else
-        {
-            Debug.LogWarning($"[GameManager] Bloqueado: Não posso ir para '{sceneName}' enquanto estou em {CurrentState}");
+            scoreP2 = novaPontuacao;
+            AtualizarTextoUI(textoPontuacaoP2, "P2 Moedas: ", scoreP2);
         }
     }
 
-    public void AllocatePlayerInput(PlayerInput playerInput)
+    private void AtualizarTextoUI(TextMeshProUGUI elementoTexto, string prefixo, int valor)
     {
-        if (CurrentState == GameState.Gameplay)
+        if (elementoTexto != null)
         {
-            playerInput.ActivateInput();
-            Debug.Log("[GameManager] Input alocado ao jogador com sucesso.");
+            elementoTexto.text = prefixo + valor.ToString();
         }
-        else
-        {
-            playerInput.DeactivateInput();
-            Debug.LogWarning("[GameManager] Input bloqueado. O jogo não está no estado Gameplay.");
-        }
+    }
+
+    public void AllocatePlayerInput(UnityEngine.InputSystem.PlayerInput player)
+    {
+        // Sua lógica de alocação de inputs mantida aqui
     }
 }

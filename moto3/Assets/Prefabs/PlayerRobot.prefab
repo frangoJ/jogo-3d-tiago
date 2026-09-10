@@ -730,6 +730,7 @@ GameObject:
   - component: {fileID: 5458169240736495379}
   - component: {fileID: 8822722994871295113}
   - component: {fileID: 2991555643303622555}
+  - component: {fileID: 1286874171138748657}
   m_Layer: 8
   m_Name: PlayerRobot
   m_TagString: Player
@@ -866,8 +867,8 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   analogMovement: 0
-  cursorLocked: 1
-  cursorInputForLook: 1
+  cursorLocked: 0
+  cursorInputForLook: 0
 --- !u!114 &8122191631772830901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,6 +1004,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9bb9d3d0707f64ca4817efec75473b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RobotMovement
+--- !u!114 &1286874171138748657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825719555866366699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ff1658a51fb20498d9709acae3e688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScore
+  playerIndex: 0
 --- !u!1 &844632740922149633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,6 +1705,7 @@ GameObject:
   - component: {fileID: 5695044874654430439}
   - component: {fileID: 6137151546694439912}
   - component: {fileID: 6349562144004416072}
+  - component: {fileID: 6679812694300834414}
   - component: {fileID: 7048916846792830471}
   m_Layer: 0
   m_Name: PlayerFollowCamera
@@ -1707,7 +1722,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693902914978837207}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
   m_LocalPosition: {x: 0.19999984, y: 1.375, z: -6.2332926}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1735,7 +1750,7 @@ MonoBehaviour:
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 7102541407640509960}
-    LookAtTarget: {fileID: 0}
+    LookAtTarget: {fileID: 7102541407640509960}
     CustomLookAtTarget: 1
   Lens:
     FieldOfView: 40
@@ -1783,6 +1798,19 @@ MonoBehaviour:
     CameraRadius: 0.15
     DampingIntoCollision: 0
     DampingFromCollision: 0
+--- !u!114 &6679812694300834414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693902914978837207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotateWithFollowTarget
+  Damping: 0
 --- !u!114 &7048916846792830471
 MonoBehaviour:
   m_ObjectHideFlags: 0
