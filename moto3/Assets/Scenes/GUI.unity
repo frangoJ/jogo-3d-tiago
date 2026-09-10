@@ -274,6 +274,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 820930779}
   m_CullTransparentMesh: 1
+--- !u!1 &1033307198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1033307200}
+  - component: {fileID: 1033307199}
+  m_Layer: 0
+  m_Name: CoinControlerUI (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1033307199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033307198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26aa3d29081a2a640be8144bd93f4321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinControlerUI
+  targetPlayerIndex: 1
+  coinText: {fileID: 1858145293}
+--- !u!4 &1033307200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033307198}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 486.89944, y: 368.12143, z: -383.00607}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1195271050
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +435,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1231937680}
   - component: {fileID: 1231937681}
-  - component: {fileID: 1231937682}
   m_Layer: 0
   m_Name: CoinControlerUI
   m_TagString: Untagged
@@ -424,24 +469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26aa3d29081a2a640be8144bd93f4321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinControlerUI
+  targetPlayerIndex: 0
   coinText: {fileID: 1389968345}
---- !u!114 &1231937682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231937679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7350f220f187a9c4da20220c1725fba4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  p1ScoreText: {fileID: 1389968345}
-  p2ScoreText: {fileID: 1858145293}
-  totalRemainingText: {fileID: 0}
-  winPanel: {fileID: 820930779}
-  winText: {fileID: 1347766957}
 --- !u!1 &1347766956
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Moedas:'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -773,7 +802,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Moedas:'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -860,3 +889,4 @@ SceneRoots:
   - {fileID: 1195271054}
   - {fileID: 723122505}
   - {fileID: 1231937680}
+  - {fileID: 1033307200}

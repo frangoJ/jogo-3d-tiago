@@ -23,7 +23,7 @@ public class GeradorPlayer : MonoBehaviour
     {
         if (inputManager == null || inputManager.playerPrefab == null) return;
 
-        // Player 1: Teclado WASD (Keyboard P1) e Canal 1 da Câmera
+        // Player 1: Teclado WASD (Keyboard P1)
         PlayerInput p1 = inputManager.JoinPlayer(
             playerIndex: 0,
             splitScreenIndex: -1,
@@ -31,7 +31,7 @@ public class GeradorPlayer : MonoBehaviour
             pairWithDevice: Keyboard.current
         );
 
-        // Player 2: Teclado Setas (Keybord P2) e Canal 2 da Câmera
+        // Player 2: Teclado Setas (Keybord P2)
         PlayerInput p2 = inputManager.JoinPlayer(
             playerIndex: 1,
             splitScreenIndex: -1,
@@ -39,10 +39,10 @@ public class GeradorPlayer : MonoBehaviour
             pairWithDevice: Keyboard.current
         );
 
-        // Configura Spawn, Score, Input e Câmera para o P1
+        // Configura Spawn, Coletor, Input e Câmera para o P1
         ConfigurarJogador(p1, 0, spawnPointP1, OutputChannels.Channel01);
 
-        // Configura Spawn, Score, Input e Câmera para o P2
+        // Configura Spawn, Coletor, Input e Câmera para o P2
         ConfigurarJogador(p2, 1, spawnPointP2, OutputChannels.Channel02);
     }
 
@@ -57,9 +57,12 @@ public class GeradorPlayer : MonoBehaviour
             player.transform.rotation = spawn.rotation;
         }
 
-        // 2. Identificador de Score (0 = P1, 1 = P2)
-        PlayerScore score = player.GetComponent<PlayerScore>();
-        if (score != null) score.playerIndex = index;
+        // 2. Identificador de Moedas (0 = P1, 1 = P2)
+        PlayerMoedaCollector collector = player.GetComponent<PlayerMoedaCollector>();
+        if (collector != null)
+        {
+            collector.playerIndex = index;
+        }
 
         // 3. Ativa o Input pelo GameManager
         if (GameManager.Instance != null)
