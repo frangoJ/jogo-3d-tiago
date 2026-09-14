@@ -12,13 +12,11 @@ public class CoinControlerUI : MonoBehaviour
 
     private void OnEnable()
     {
-        // Inscreve no evento que envia Action<int>
         PlayerObserverManager.OnMoedaCollected += UpdateCoinText;
     }
 
     private void OnDisable()
     {
-        // Desinscreve do evento
         PlayerObserverManager.OnMoedaCollected -= UpdateCoinText;
     }
 
@@ -46,7 +44,7 @@ public class CoinControlerUI : MonoBehaviour
     {
         if (coinText != null)
         {
-            string prefixo = (targetPlayerIndex == 0) ? "P1 Moedas: " : "P2 Moedas: ";
+            string prefixo = (targetPlayerIndex == 0) ? "Moedas: " : "Moedas: ";
             coinText.text = prefixo + valor;
         }
     }

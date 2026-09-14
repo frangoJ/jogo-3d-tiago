@@ -847,7 +847,7 @@ MonoBehaviour:
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
-  LockCameraPosition: 0
+  LockCameraPosition: 1
   LookSensitivity: {x: 5, y: 5}
 --- !u!114 &1362642745020102311
 MonoBehaviour:
@@ -1229,7 +1229,7 @@ Transform:
   m_GameObject: {fileID: 1082096398079473865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19999984, y: 1.375, z: -7.0000014}
+  m_LocalPosition: {x: 0.19999984, y: 1.375, z: -6.2332926}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1712,7 +1712,7 @@ Transform:
   m_GameObject: {fileID: 1693902914978837207}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19999984, y: 1.375, z: -7.0000014}
+  m_LocalPosition: {x: 0.19999984, y: 1.375, z: -6.2332926}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
