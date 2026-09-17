@@ -28,13 +28,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // Se o jogo for iniciado pela cena de Boot, transiciona automaticamente para a primeira cena (Splash ou Menu)
+        if (SceneManager.GetActiveScene().name == "_Boot")
+        {
+            RequestSceneChange("Splash"); // Altere para "Menu" se preferir ir direto ao menu
+        }
+    }
+
     // -------------------------------------------------------------
     // REGISTRO DA INTERFACE DA CENA GUI
     // -------------------------------------------------------------
     public void RegistrarUI(UIManager ui)
     {
         uiManager = ui;
-        AtualizarUI();
+
+        if (uiManager != null)
+        {
+            // Garante que o painel de vitória comce escondido na nova partida
+            if (uiManager.winPanel != null)
+                uiManager.winPanel.SetActive(false);
+
+            AtualizarUI();
+        }
     }
 
     // -------------------------------------------------------------
@@ -47,11 +64,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CarregarCenasProcesso(string nomeDaCena)
     {
-        // 1. Reseta o placar ao trocar de cena
+        // 1. Reseta o placar e estado ao trocar de cena
         p1Score = 0;
         p2Score = 0;
         moedasColetadasTotal = 0;
-        uiManager = null; // Limpa referência antiga da UI
+        uiManager = null; // Limpa a referência da UI antiga
 
         // 2. Carrega a cena solicitada (Ex: "Jogo", "Menu", "Splash")
         AsyncOperation opGameplay = SceneManager.LoadSceneAsync(nomeDaCena, LoadSceneMode.Single);

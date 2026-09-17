@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI p2ScoreText;
     public TextMeshProUGUI totalRemainingText;
 
-    [Header("Painel de Vitória")]
+    [Header("Painel de VitÃ³ria")]
     public GameObject winPanel;
     public TextMeshProUGUI winText;
 
@@ -17,11 +17,28 @@ public class UIManager : MonoBehaviour
         if (winPanel != null)
             winPanel.SetActive(false);
 
-        // Quando a cena GUI é criada aditivamente pelo GameManager,
-        // ela se "apresenta" para ele registrar as referências dos textos.
+        RegistrarNoGameManager();
+    }
+
+    private void OnEnable()
+    {
+        RegistrarNoGameManager();
+    }
+
+    private void RegistrarNoGameManager()
+    {
         if (GameManager.Instance != null)
         {
             GameManager.Instance.RegistrarUI(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Limpa a referÃªncia ao descarregar a cena GUI
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.RegistrarUI(null);
         }
     }
 }
