@@ -3,20 +3,18 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Textos do Placar")]
-    public TextMeshProUGUI p1ScoreText;
-    public TextMeshProUGUI p2ScoreText;
-    public TextMeshProUGUI totalRemainingText;
-
     [Header("Painel de Vitória")]
     public GameObject winPanel;
     public TextMeshProUGUI winText;
 
-    private void Start()
+    private void Awake()
     {
         if (winPanel != null)
             winPanel.SetActive(false);
+    }
 
+    private void Start()
+    {
         RegistrarNoGameManager();
     }
 
@@ -35,7 +33,6 @@ public class UIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Limpa a referência ao descarregar a cena GUI
         if (GameManager.Instance != null)
         {
             GameManager.Instance.RegistrarUI(null);

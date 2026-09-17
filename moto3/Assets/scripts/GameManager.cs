@@ -7,11 +7,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [Header("Pontuação")]
+    [Header("Pontuação de Estrelas")]
     public int p1Score = 0;
     public int p2Score = 0;
-    public int totalMoedasNaCena = 10;
-    public int moedasColetadasTotal = 0;
+    public int totalEstrelasNaCena = 10;
+    public int estrelasColetadasTotal = 0;
 
     private UIManager uiManager;
 
@@ -28,35 +28,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        PlayerObserverManager.OnEstrelaCollected += OnEstrelaColetadaRecebida;
+    }
+
+    private void OnDisable()
+    {
+        PlayerObserverManager.OnEstrelaCollected -= OnEstrelaColetadaRecebida;
+    }
+
     private void Start()
     {
-        // Se o jogo for iniciado pela cena de Boot, transiciona automaticamente para a primeira cena (Splash ou Menu)
         if (SceneManager.GetActiveScene().name == "_Boot")
         {
-            RequestSceneChange("Splash"); // Altere para "Menu" se preferir ir direto ao menu
+            RequestSceneChange("Splash");
         }
     }
 
-    // -------------------------------------------------------------
-    // REGISTRO DA INTERFACE DA CENA GUI
-    // -------------------------------------------------------------
+    private void OnEstrelaColetadaRecebida(int playerIndex)
+    {
+        AdicionarPontuacaoEstrela(playerIndex);
+    }
+
     public void RegistrarUI(UIManager ui)
     {
         uiManager = ui;
 
         if (uiManager != null)
         {
-            // Garante que o painel de vitória comce escondido na nova partida
             if (uiManager.winPanel != null)
                 uiManager.winPanel.SetActive(false);
-
-            AtualizarUI();
         }
     }
 
-    // -------------------------------------------------------------
-    // GERENCIAMENTO DE MUDANÇA DE CENA (Assíncrono)
-    // -------------------------------------------------------------
     public void RequestSceneChange(string nomeDaCena)
     {
         StartCoroutine(CarregarCenasProcesso(nomeDaCena));
@@ -64,20 +69,17 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CarregarCenasProcesso(string nomeDaCena)
     {
-        // 1. Reseta o placar e estado ao trocar de cena
         p1Score = 0;
         p2Score = 0;
-        moedasColetadasTotal = 0;
-        uiManager = null; // Limpa a referência da UI antiga
+        estrelasColetadasTotal = 0;
+        uiManager = null;
 
-        // 2. Carrega a cena solicitada (Ex: "Jogo", "Menu", "Splash")
         AsyncOperation opGameplay = SceneManager.LoadSceneAsync(nomeDaCena, LoadSceneMode.Single);
         while (!opGameplay.isDone)
         {
             yield return null;
         }
 
-        // 3. Carrega a cena GUI aditivamente APENAS se a cena carregada for a de gameplay ("Jogo")
         if (nomeDaCena == "Jogo")
         {
             AsyncOperation opGUI = SceneManager.LoadSceneAsync("GUI", LoadSceneMode.Additive);
@@ -88,12 +90,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // -------------------------------------------------------------
-    // LÓGICA DE PONTUAÇÃO E PLACAR
-    // -------------------------------------------------------------
-    public void AdicionarPontuacao(int playerIndex)
+    public void AdicionarPontuacaoEstrela(int playerIndex)
     {
-        moedasColetadasTotal++;
+        estrelasColetadasTotal++;
 
         if (playerIndex == 0)
         {
@@ -104,43 +103,41 @@ public class GameManager : MonoBehaviour
             p2Score++;
         }
 
-        AtualizarUI();
+        Debug.Log($"Estrela coletada por P{playerIndex + 1}! Total: {estrelasColetadasTotal}/{totalEstrelasNaCena}");
 
-        if (moedasColetadasTotal >= totalMoedasNaCena)
+        if (estrelasColetadasTotal >= totalEstrelasNaCena)
         {
+            Debug.Log("Vitória atingida! Exibindo tela de vitória...");
             ExibirTelaDeVitoria();
         }
     }
 
-    public void AtualizarUI()
-    {
-        if (uiManager == null) return;
-
-        if (uiManager.p1ScoreText != null)
-            uiManager.p1ScoreText.text = $"PLAYER 1: {p1Score}";
-
-        if (uiManager.p2ScoreText != null)
-            uiManager.p2ScoreText.text = $"PLAYER 2: {p2Score}";
-
-        if (uiManager.totalRemainingText != null)
-            uiManager.totalRemainingText.text = $"RESTANTES: {totalMoedasNaCena - moedasColetadasTotal}";
-    }
-
     private void ExibirTelaDeVitoria()
     {
-        if (uiManager == null) return;
-
-        if (uiManager.winPanel != null)
-            uiManager.winPanel.SetActive(true);
-
-        if (uiManager.winText != null)
+        // Fallback caso o UIManager não tenha sido atribuído no registro
+        if (uiManager == null)
         {
-            if (p1Score > p2Score)
-                uiManager.winText.text = "PLAYER 1 VENCEU!";
-            else if (p2Score > p1Score)
-                uiManager.winText.text = "PLAYER 2 VENCEU!";
-            else
-                uiManager.winText.text = "EMPATE!";
+            uiManager = FindFirstObjectByType<UIManager>();
+        }
+
+        if (uiManager != null)
+        {
+            if (uiManager.winPanel != null)
+                uiManager.winPanel.SetActive(true);
+
+            if (uiManager.winText != null)
+            {
+                if (p1Score > p2Score)
+                    uiManager.winText.text = "PLAYER 1 VENCEU!";
+                else if (p2Score > p1Score)
+                    uiManager.winText.text = "PLAYER 2 VENCEU!";
+                else
+                    uiManager.winText.text = "EMPATE!";
+            }
+        }
+        else
+        {
+            Debug.LogError("ERRO: UIManager não foi encontrado na cena!");
         }
     }
 

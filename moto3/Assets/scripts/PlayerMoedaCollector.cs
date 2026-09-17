@@ -1,44 +1,57 @@
 using UnityEngine;
-using StarterAssets; // Namespace necessário para acessar o ThirdPersonController
+using StarterAssets;
 
 public class PlayerMoedaCollector : MonoBehaviour
 {
-    // Identificador atribuído pelo GeradorPlayer (0 = P1, 1 = P2)
     public int playerIndex = 0; 
 
-    [Header("Aumento de Velocidade")]
-    [SerializeField] private float incrementoVelocidade = 0.5f; // Quanto a velocidade aumenta por moeda
-    [SerializeField] private float velocidadeMaxima = 12.0f;     // Limite para o robô não ficar incontrolável
+    [Header("Aumento de Velocidade (Moedas)")]
+    [SerializeField] private float incrementoVelocidade = 0.5f;
+    [SerializeField] private float velocidadeMaxima = 12.0f;
 
     private int moedaCount = 0;
     private ThirdPersonController controller;
 
     private void Awake()
     {
-        // Pega o componente do ThirdPersonController presente no próprio robô
         controller = GetComponent<ThirdPersonController>();
     }
 
+    // Chamado quando o CharacterController bate em algo com Collider rígido
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.CompareTag("Moeda"))
+        ProcessarColeta(hit.gameObject);
+    }
+
+    // Chamado se o item for um Trigger
+    private void OnTriggerEnter(Collider other)
+    {
+        ProcessarColeta(other.gameObject);
+    }
+
+    private void ProcessarColeta(GameObject item)
+    {
+        // 1. COLETA DE MOEDA (Velocidade)
+        if (item.CompareTag("Moeda"))
         {
             moedaCount++;
-
-            // 1. Aumenta a velocidade do robô
             AumentarVelocidade();
-
-            // 2. Atualiza a pontuação no GameManager persistente
-            if (GameManager.Instance != null)
+            PlayerObserverManager.NotifyMoedaCollected(playerIndex);
+            Destroy(item);
+        }
+        // 2. COLETA DE ESTRELA (Vitória)
+        else if (item.CompareTag("Estrela") || item.GetComponent<Pickup>() != null)
+        {
+            // Instancia partículas no Pickup se houver
+            Pickup pickup = item.GetComponent<Pickup>();
+            if (pickup != null && pickup.particleEffectPrefab != null)
             {
-                GameManager.Instance.AdicionarPontuacao(playerIndex);
+                Instantiate(pickup.particleEffectPrefab, item.transform.position, Quaternion.identity);
             }
 
-            // 3. Dispara o evento para atualizar a interface (UI)
-            PlayerObserverManager.NotifyMoedaCollected(moedaCount);
-
-            // 4. Destrói o objeto da moeda
-            Destroy(hit.gameObject);
+            // Envia evento de estrela coletada
+            PlayerObserverManager.NotifyEstrelaCollected(playerIndex);
+            Destroy(item);
         }
     }
 
@@ -46,10 +59,7 @@ public class PlayerMoedaCollector : MonoBehaviour
     {
         if (controller != null)
         {
-            // Aumenta a velocidade e aplica o limite máximo definido
             controller.MoveSpeed = Mathf.Min(controller.MoveSpeed + incrementoVelocidade, velocidadeMaxima);
-            
-            // Opcional: Aumenta a velocidade de corrida proporcionalmente (SprintSpeed)
             controller.SprintSpeed = Mathf.Min(controller.SprintSpeed + incrementoVelocidade, velocidadeMaxima * 1.5f);
         }
     }
