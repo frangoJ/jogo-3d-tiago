@@ -151,8 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   p1Score: 0
   p2Score: 0
-  totalMoedasNaCena: 10
-  moedasColetadasTotal: 0
+  totalEstrelasNaCena: 6
+  estrelasColetadasTotal: 0
 --- !u!4 &1083597074
 Transform:
   m_ObjectHideFlags: 0
@@ -180,8 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec21020e4f10ee741b86616cc277cc45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BootManager
-  proximaCena: Splash
-  tempoEspera: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

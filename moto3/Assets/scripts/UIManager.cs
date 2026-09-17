@@ -3,39 +3,22 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Painel de Vitória")]
+    [Header("Tela de Vitória")]
     public GameObject winPanel;
     public TextMeshProUGUI winText;
 
-    private void Awake()
-    {
-        if (winPanel != null)
-            winPanel.SetActive(false);
-    }
-
     private void Start()
     {
-        RegistrarNoGameManager();
-    }
+        // Desativa o painel ao iniciar a cena GUI
+        if (winPanel != null)
+        {
+            winPanel.SetActive(false);
+        }
 
-    private void OnEnable()
-    {
-        RegistrarNoGameManager();
-    }
-
-    private void RegistrarNoGameManager()
-    {
+        // Se registra com o GameManager persistente vindo do _Boot
         if (GameManager.Instance != null)
         {
             GameManager.Instance.RegistrarUI(this);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.RegistrarUI(null);
         }
     }
 }

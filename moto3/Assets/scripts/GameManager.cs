@@ -55,10 +55,9 @@ public class GameManager : MonoBehaviour
     {
         uiManager = ui;
 
-        if (uiManager != null)
+        if (uiManager != null && uiManager.winPanel != null)
         {
-            if (uiManager.winPanel != null)
-                uiManager.winPanel.SetActive(false);
+            uiManager.winPanel.SetActive(false);
         }
     }
 
@@ -94,27 +93,26 @@ public class GameManager : MonoBehaviour
     {
         estrelasColetadasTotal++;
 
-        if (playerIndex == 0)
+        if (playerIndex == 0) 
         {
             p1Score++;
         }
-        else if (playerIndex == 1)
+        else if (playerIndex == 1) 
         {
             p2Score++;
         }
 
-        Debug.Log($"Estrela coletada por P{playerIndex + 1}! Total: {estrelasColetadasTotal}/{totalEstrelasNaCena}");
+        Debug.Log($"[ESTRELA] P{playerIndex + 1} coletou! Placar - P1: {p1Score} | P2: {p2Score} | Total: {estrelasColetadasTotal}/{totalEstrelasNaCena}");
 
-        if (estrelasColetadasTotal >= totalEstrelasNaCena)
+        if (estrelasColetadasTotal >= totalEstrelasNaCena && totalEstrelasNaCena > 0)
         {
-            Debug.Log("Vitória atingida! Exibindo tela de vitória...");
+            Debug.Log("[VITÓRIA] Todas as estrelas coletadas! Exibindo tela de vitória...");
             ExibirTelaDeVitoria();
         }
     }
 
     private void ExibirTelaDeVitoria()
     {
-        // Fallback caso o UIManager não tenha sido atribuído no registro
         if (uiManager == null)
         {
             uiManager = FindFirstObjectByType<UIManager>();
@@ -123,7 +121,9 @@ public class GameManager : MonoBehaviour
         if (uiManager != null)
         {
             if (uiManager.winPanel != null)
+            {
                 uiManager.winPanel.SetActive(true);
+            }
 
             if (uiManager.winText != null)
             {
@@ -134,10 +134,6 @@ public class GameManager : MonoBehaviour
                 else
                     uiManager.winText.text = "EMPATE!";
             }
-        }
-        else
-        {
-            Debug.LogError("ERRO: UIManager não foi encontrado na cena!");
         }
     }
 

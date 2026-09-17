@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
@@ -17,13 +18,14 @@ public class GeradorPlayer : MonoBehaviour
     private void Start()
     {
         InstanciarJogadores();
-        AtualizarTotalDeEstrelasNoGameManager();
+        StartCoroutine(AguardarEAtualizarEstrelas());
     }
 
     public void InstanciarJogadores()
     {
         if (inputManager == null || inputManager.playerPrefab == null) return;
 
+        // Player 1
         PlayerInput p1 = inputManager.JoinPlayer(
             playerIndex: 0,
             splitScreenIndex: -1,
@@ -31,6 +33,7 @@ public class GeradorPlayer : MonoBehaviour
             pairWithDevice: Keyboard.current
         );
 
+        // Player 2
         PlayerInput p2 = inputManager.JoinPlayer(
             playerIndex: 1,
             splitScreenIndex: -1,
@@ -52,6 +55,7 @@ public class GeradorPlayer : MonoBehaviour
             player.transform.rotation = spawn.rotation;
         }
 
+        // Atribui explicitamente o índice do jogador ao coletor
         PlayerMoedaCollector collector = player.GetComponent<PlayerMoedaCollector>();
         if (collector != null)
         {
@@ -76,14 +80,20 @@ public class GeradorPlayer : MonoBehaviour
         }
     }
 
-    private void AtualizarTotalDeEstrelasNoGameManager()
+    private IEnumerator AguardarEAtualizarEstrelas()
     {
+        yield return null;
+
         if (GameManager.Instance != null)
         {
-            // Busca todas as estrelas/pickups na cena e define a quantidade exata
+            GameManager.Instance.estrelasColetadasTotal = 0;
+            GameManager.Instance.p1Score = 0;
+            GameManager.Instance.p2Score = 0;
+
             Pickup[] estrelas = FindObjectsByType<Pickup>(FindObjectsSortMode.None);
             GameManager.Instance.totalEstrelasNaCena = estrelas.Length;
-            Debug.Log($"Total de estrelas encontradas na cena: {estrelas.Length}");
+
+            Debug.Log($"[SISTEMA] Estrelas encontradas na cena: {estrelas.Length}");
         }
     }
 }

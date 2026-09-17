@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Pickup : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class Pickup : MonoBehaviour
 
     private Vector3 startPosition;
     private float timer;
+    private bool jaColetado = false; // Trava para impedir pontuação dupla
 
     void Start()
     {
@@ -28,34 +28,17 @@ public class Pickup : MonoBehaviour
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
-    void OnTriggerEnter(Collider other)
+    public void Coletar(int playerIndex)
     {
-        int playerIndex = -1;
+        if (jaColetado) return;
+        jaColetado = true;
 
-        // 1. Tenta identificar o playerIndex via PlayerMoedaCollector presente no Robô
-        PlayerMoedaCollector collector = other.GetComponent<PlayerMoedaCollector>();
-        if (collector != null)
+        if (particleEffectPrefab != null)
         {
-            playerIndex = collector.playerIndex;
-        }
-        // 2. Se não achar no collector, tenta buscar pelo PlayerInput do New Input System
-        else if (other.GetComponent<PlayerInput>() != null)
-        {
-            playerIndex = other.GetComponent<PlayerInput>().playerIndex;
+            Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
         }
 
-        // Se encontrou um jogador válido
-        if (playerIndex != -1)
-        {
-            if (particleEffectPrefab != null)
-            {
-                Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
-            }
-
-            // Notifica o evento global que uma Estrela foi coletada
-            PlayerObserverManager.NotifyEstrelaCollected(playerIndex);
-
-            Destroy(gameObject);
-        }
+        PlayerObserverManager.NotifyEstrelaCollected(playerIndex);
+        Destroy(gameObject);
     }
 }
